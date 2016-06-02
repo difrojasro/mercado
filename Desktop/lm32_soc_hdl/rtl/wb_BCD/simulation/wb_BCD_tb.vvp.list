@@ -1,0 +1,5 @@
+../BCD.v
+../decoder_segments.v
+../selector_anodes.v
+../wb_BCD.v
+wb_BCD_tb.v

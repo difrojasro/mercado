@@ -1,0 +1,33 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Thu Jun 02 11:47:59 2016
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "seg_out<0>" LOCATE = SITE "L14" LEVEL 1;
+COMP "seg_out<1>" LOCATE = SITE "N14" LEVEL 1;
+COMP "seg_out<2>" LOCATE = SITE "M14" LEVEL 1;
+COMP "seg_out<3>" LOCATE = SITE "U18" LEVEL 1;
+COMP "seg_out<4>" LOCATE = SITE "U17" LEVEL 1;
+COMP "seg_out<5>" LOCATE = SITE "T18" LEVEL 1;
+COMP "seg_out<6>" LOCATE = SITE "T17" LEVEL 1;
+COMP "clk" LOCATE = SITE "V10" LEVEL 1;
+COMP "rst" LOCATE = SITE "B8" LEVEL 1;
+COMP "an_out<0>" LOCATE = SITE "N16" LEVEL 1;
+COMP "an_out<1>" LOCATE = SITE "N15" LEVEL 1;
+COMP "an_out<2>" LOCATE = SITE "P18" LEVEL 1;
+COMP "an_out<3>" LOCATE = SITE "P17" LEVEL 1;
+COMP "ps2_dat_in" LOCATE = SITE "T12" LEVEL 1;
+COMP "ascii<0>" LOCATE = SITE "U16" LEVEL 1;
+COMP "ascii<1>" LOCATE = SITE "V16" LEVEL 1;
+COMP "ascii<2>" LOCATE = SITE "U15" LEVEL 1;
+COMP "ascii<3>" LOCATE = SITE "V15" LEVEL 1;
+COMP "ascii<4>" LOCATE = SITE "M11" LEVEL 1;
+COMP "ascii<5>" LOCATE = SITE "N11" LEVEL 1;
+COMP "ascii<6>" LOCATE = SITE "R11" LEVEL 1;
+COMP "clkps2" LOCATE = SITE "V12" LEVEL 1;
+PIN clkps2_pin<0> = BEL "clkps2" PINNAME PAD;
+PIN "clkps2_pin<0>" CLOCK_DEDICATED_ROUTE = FALSE;
+COMP "uart_rxd" LOCATE = SITE "N17" LEVEL 1;
+COMP "uart_txd" LOCATE = SITE "N18" LEVEL 1;
+SCHEMATIC END;
+

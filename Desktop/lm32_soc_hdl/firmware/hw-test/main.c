@@ -1,0 +1,266 @@
+/**
+ * 
+ */
+
+#include "soc-hw.h"
+
+inline void writeint(uint32_t val)
+{
+	uint32_t i, digit;
+
+	for (i=0; i<8; i++) {
+		digit = (val & 0xf0000000) >> 28;
+		if (digit >= 0xA) 
+			uart_putchar('A'+digit-10);
+		else
+			uart_putchar('0'+digit);
+		val <<= 4;
+	}
+}
+
+void test2() {
+    uart_putchar('b');   
+}
+
+void test() {
+    uart_putchar('a');
+    test2();
+    uart_putchar('c');
+} 
+
+char glob[] = "Global";
+
+volatile uint32_t *p;
+volatile uint8_t *p2;
+
+extern uint32_t tic_msec;
+
+int main()
+{
+//	uint32_t aa=1;
+
+
+
+	for(;;)
+{    
+	uart_putstr( "                 BIENVENIDO AL SUPERMERCADO\n" );
+	uart_putstr( "\n" );	
+	uart_putstr( "Seleccione el producto deseado:\n" );
+	uart_putstr( "\n" );
+	uart_putstr( "0. Chocolatina\n" );	
+	uart_putstr( "1. Leche\n" );
+	uart_putstr( "2. Papas\n" );
+	uart_putstr( "3. Queso\n" );
+	uart_putstr( "4. Arepa\n" );
+	uart_putstr( "5. Yogurt\n" );
+	uart_putstr( "6. Chocorramo\n" );
+	uart_putstr( "7. Pan Bimbo\n" );
+	uart_putstr( "8. Todorico\n" );
+	uart_putstr( "9. 5 Huevos\n" );
+	uart_putstr( "\n" );
+	uart_putstr( "\n" );
+	
+
+	char producto1 = uart_getchar();
+
+	switch(producto1)
+	{
+		case 0x30:
+		segments(0,0,0,1);
+		uart_putstr( "Seleccionaste Chocolatina\n" );
+		break;
+
+		case 0x32:
+		segments(0,0,5,2);
+		uart_putstr( "Seleccionaste Leche\n" );	
+		break;
+
+		case 0x34:
+		segments(0,0,3,1);
+		uart_putstr( "Seleccionaste Papas\n" );	
+		break;
+
+		case 0x36:
+		segments(0,5,2,4);
+		uart_putstr( "Seleccionaste Queso\n" );
+		break;
+
+		case 0x38:
+		segments(0,0,7,1);
+		uart_putstr( "Seleccionaste Arepa\n" );	
+		break;
+
+		case 0x40:
+		segments(0,5,7,1);
+		uart_putstr( "Seleccionaste Yogurt\n" );
+		break;
+
+		case 0x42:
+		segments(0,0,8,15);
+		uart_putstr( "Seleccionaste Chocorramo\n" );
+		break;
+
+		case 0x44:
+		segments(0,5,6,3);
+		uart_putstr( "Seleccionaste Pan Bimbo\n" );
+		break;
+
+		case 0x46:
+		segments(0,0,2,2);
+		uart_putstr( "Seleccionaste Todorico\n" );
+		break;
+
+		case 0x48:
+		segments(0,0,5,1);
+		uart_putstr( "Seleccionaste 5 Huevos\n" );
+		break;
+
+		default:
+		uart_putstr( "Entrada no valida\n" );
+		uart_putstr( "\n" );
+		break;
+	}
+
+
+
+
+
+
+/*
+	segments(seg4, 15, 15, 15);
+//	uart_putstr( "**I*\n" );
+	uint32_t seg3 = uart_getchar();
+	segments(seg3, seg4, 15, 15);
+	uint32_t seg2 = uart_getchar();
+	segments(seg2, seg3, seg4, 15);
+	uint32_t seg1 = uart_getchar();
+	segments(seg1, seg2, seg3, seg4);
+	uart_putchar(seg4);
+	uart_putchar(seg3);
+	uart_putchar(seg2);
+	uart_putchar(seg1);
+//	segments(15, seg3, seg2, 15);
+	*/
+}
+/*
+rt_putchar(2*(aa));
+ //     uart_putchar((2+(aa++)));
+
+  //}
+	   prueba();
+   uart_putchar('b');
+   uart_putchar(2+3);
+   uart_putchar(2*3);
+   uart_putchar(6/3);
+   char test2[] = "Lokalerstr";
+   char *str = test2;
+   uint32_t i;
+    
+//    for (i = 0; i < 4; i++)
+ //       test2[i] = 'l';
+  //  glob[0]  = 'g';
+    
+ 	// Initialize stuff
+	uart_init();
+
+	// Say Hello!
+	uart_putstr( "** Spike Test Firmware **\n" );
+
+	// Initialize TIC
+	isr_init();
+	tic_init();
+	irq_set_mask( 0x00000002 );
+	irq_enable();
+
+	// Say Hello!
+	uart_putstr( "Timer Interrupt instelled.\n" );
+
+	// Do some trivial tests
+	uart_putstr( "Subroutine-Return Test: " );
+	test();
+	uart_putchar('\n');    
+
+	uart_putstr( "Local-Pointer Test:" );
+	for (;*str; str++) {
+	   uart_putchar(*str);
+	}
+	uart_putchar('\n');    
+	
+	uart_putstr( "Global-Pointer Test:" );
+	str = glob;
+	for (;*str; str++) {
+	   uart_putchar(*str);
+	}
+	uart_putchar('\n');    
+
+	uart_putstr( "Stack Pointer : " );
+	writeint(get_sp());
+	uart_putchar('\n');    
+
+	uart_putstr( "Global Pointer: " );
+	writeint(get_gp());
+	uart_putchar('\n');    
+
+	uart_putstr( "Timer Test (1s): " );
+	for(i=0; i<4; i++) {
+		uart_putstr("tic...");    
+		msleep(1000);
+	}
+	uart_putchar('\n');    
+
+	uart_putstr( "Timer Interrupt counter: " );
+	writeint( tic_msec );
+	uart_putchar('\n');    
+
+	int val = tic_msec;
+	uart_putstr( "Shift: " );
+	writeint( val );
+	uart_putstr(" <-> ");    
+	for(i=0; i<32; i++) {
+		if (val & 0x80000000)
+			uart_putchar( '1' );
+		else
+			uart_putchar( '0' );
+			
+		val <<= 1;
+	}
+	uart_putstr("\r\n");
+	
+	uart_putstr( "GPIO Test..." );
+	gpio0->oe = 0x000000ff;
+	for(;;) {
+		for(i=0; i<8; i++) {
+			uint32_t out1, out2;
+
+			out1 = 0x01 << i;
+			out2 = 0x80 >> i;
+			gpio0->out = out1 | out2;
+
+			msleep(100);
+		}
+	}
+*/
+
+/*
+	uart_putstr( "Memory Dump: " );
+	uint32_t *start = (uint32_t *)0x40000000;
+	uint32_t *end   = (uint32_t *)0x40000100;
+	uint32_t *p;
+	for (p=start; p<end; p++) {
+		if (((uint32_t)p & 12) == 0) {
+			uart_putstr("\r\n[");
+			writeint((uint32_t) p);
+			uart_putchar(']');    
+		}
+
+		uart_putchar(' ');    
+		writeint(*p);
+	}
+*/
+
+/*	uart_putstr("Entering Echo Test...\n");
+	while (1) {
+	   uart_putchar(uart_getchar());
+	}*/
+}
+

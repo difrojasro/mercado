@@ -1,0 +1,7 @@
+INFILE=/home/diego/Desktop/lm32_soc_hdl/build/system-routed.ncd
+OUTFILE=/home/diego/Desktop/lm32_soc_hdl/build/system.bit
+FAMILY=Spartan6
+PART=xc6slx45-3csg324
+WORKINGDIR=/home/diego/Desktop/lm32_soc_hdl/build
+LICENSE=WebPack
+USER_INFO=210936067_0_0_339
